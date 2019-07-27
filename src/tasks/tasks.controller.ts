@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { Task } from 'dist/tasks/task.modle';
+import { Task } from './task.modle';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 /**
  * Controllers are bound to a a specific path for example /tasks for the task resource
@@ -16,4 +17,20 @@ export class TasksController {
     getAllTasks(): Task[] {
         return this.tasksService.getAllTasks();
     }
+
+    @Get('/:id')
+    getTaskById(@Param('id') id: string): Task {
+        return this.tasksService.getTskById(id);
+    }
+
+    @Post()
+    CreateTask(@Body() createTaskDto: CreateTaskDto): Task {
+        return this.tasksService.createTask(createTaskDto);
+    }
+    
+    @Delete('/:id')
+    deleteTaskById(@Param('id') id: string): void {
+        this.tasksService.deleteTaskById(id);
+    }
+
 }
