@@ -3,7 +3,7 @@ import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './task.modle';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
-import { TaskStatusValidationPine } from './pipes/task-status-validation.pipe';
+import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 
 /**
  * Controllers are bound to a a specific path for example /tasks for the task resource
@@ -16,7 +16,7 @@ export class TasksController {
     constructor(private tasksService: TasksService) { }
 
     @Get()
-    getTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
+    getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
 
         if (Object.keys(filterDto).length) {
             return this.tasksService.getTasksWithFilter(filterDto)
@@ -44,7 +44,7 @@ export class TasksController {
     @Patch('/:id/status')
     updateTaskStatus(
         @Param('id') id: string,
-        @Body('status', TaskStatusValidationPine) status: TaskStatus
+        @Body('status', TaskStatusValidationPipe) status: TaskStatus
     ): Task {
         return this.tasksService.updateTaskStatus(id, status);
     }
