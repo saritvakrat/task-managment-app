@@ -37,3 +37,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## API documentations
+Run - npm run apidocs
+This will generate a folder called "docs" in root -> inside of it there an index.html, you can open this in the browser and get an HTML readable documentation.
+Do note this folder is in .gitignore
