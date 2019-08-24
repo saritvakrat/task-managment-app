@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, Query, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { Task, TaskStatus } from './task.modle';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
+import { Task } from './task.entity';
 
 /**
  * Controllers are bound to a a specific path for example /tasks for the task resource
@@ -15,38 +15,38 @@ import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 export class TasksController {
     constructor(private tasksService: TasksService) { }
 
-    @Get()
-    getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
+    // @Get()
+    // getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
 
-        if (Object.keys(filterDto).length) {
-            return this.tasksService.getTasksWithFilter(filterDto)
-        } else {
-            return this.tasksService.getAllTasks();
-        }
-    }
+    //     if (Object.keys(filterDto).length) {
+    //         return this.tasksService.getTasksWithFilter(filterDto)
+    //     } else {
+    //         return this.tasksService.getAllTasks();
+    //     }
+    // }
 
     @Get('/:id')
-    getTaskById(@Param('id') id: string): Task {
-        return this.tasksService.getTskById(id);
+    getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
+        return this.tasksService.getTaskById(id);
     }
 
-    @Post()
-    @UsePipes(ValidationPipe)
-    CreateTask(@Body() createTaskDto: CreateTaskDto): Task {
-        return this.tasksService.createTask(createTaskDto);
-    }
+    // @Post()
+    // @UsePipes(ValidationPipe)
+    // CreateTask(@Body() createTaskDto: CreateTaskDto): Task {
+    //     return this.tasksService.createTask(createTaskDto);
+    // } 
 
-    @Delete('/:id')
-    deleteTaskById(@Param('id') id: string): void {
-        this.tasksService.deleteTaskById(id);
-    }
+    // @Delete('/:id')
+    // deleteTaskById(@Param('id') id: string): void {
+    //     this.tasksService.deleteTaskById(id);
+    // }
 
-    @Patch('/:id/status')
-    updateTaskStatus(
-        @Param('id') id: string,
-        @Body('status', TaskStatusValidationPipe) status: TaskStatus
-    ): Task {
-        return this.tasksService.updateTaskStatus(id, status);
-    }
+    // @Patch('/:id/status')
+    // updateTaskStatus(
+    //     @Param('id') id: string,
+    //     @Body('status', TaskStatusValidationPipe) status: TaskStatus
+    // ): Task {
+    //     return this.tasksService.updateTaskStatus(id, status);
+    // }
 
 }
