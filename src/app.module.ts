@@ -8,11 +8,9 @@ import { typeOrmConfig } from './config/typeorm.config';
 //Module is declared using a TS decorator
 @Module({ 
   imports:  [ 
+    TypeOrmModule.forRoot(typeOrmConfig),
     TasksModule,
-    TypeOrmModule.forRoot(typeOrmConfig)
   ],
-  controllers: [TasksController],
-  providers: [TasksService],
 })
 
 export class AppModule { }

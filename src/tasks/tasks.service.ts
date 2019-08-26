@@ -13,8 +13,6 @@ export class TasksService {
         private taskRepository: TaskRepository,
     ) { }
 
-    // private tasks: Task[] = [];
-
     // getAllTasks(): Task[] {
     //     return this.tasks;
     // }
@@ -46,22 +44,16 @@ export class TasksService {
     }
 
     async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-        const { title, description } = createTaskDto;
-
-        const task = new Task();
-        task.title = title;
-        task.description = description;
-        task.status = TaskStatus.OPEN;
-        task.save();
-
-        return task;
+        return this.taskRepository.createTask(createTaskDto);
     }
 
-    // deleteTaskById(id: string): void {
-    //     let foundTask = this.getTskById(id);
+    async deleteTaskById(id: number): Promise<void> {
+        const deletedTask = await this.taskRepository.delete(id)
 
-    //     this.tasks = this.tasks.filter(task => task.id !== foundTask.id);
-    // }
+        if(deletedTask.affected === 0) {
+            throw new NotFoundException(`Oops! we could not find task with id ${id}`);
+        } 
+    }
 
     // updateTaskStatus(id: string, status: TaskStatus): Task {
     //     const task = this.getTskById(id);
