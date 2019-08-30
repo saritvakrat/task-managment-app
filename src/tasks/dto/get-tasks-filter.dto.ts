@@ -1,6 +1,12 @@
-import { TaskStatus } from '../task.modle';
+import { TaskStatus } from '../tasks-status.enum';
 import { IsOptional, IsIn, IsNotEmpty } from 'class-validator';
 
+/**
+ *
+ *
+ * @export
+ * @class GetTasksFilterDto
+ */
 export class GetTasksFilterDto {
     @IsOptional()
     @IsIn(Object.values(TaskStatus))
@@ -9,4 +15,5 @@ export class GetTasksFilterDto {
     @IsOptional()
     @IsNotEmpty() 
     search: string;
+    management
 }

@@ -3,13 +3,6 @@ interface -> enforces the shape of an object upon completion, after completion t
  Class ->already exists in JS, after after completion the classes are  preserved. Used for creating objects based on a blueprint and adding some self contained functionality using methods for example
  If you are not sure, start with creating an interface an than change to Class since it is easier. */
 
-export interface Task {
-    id: string;
-    title: string;
-    description: string;
-    status: TaskStatus;
-}
-
 export enum TaskStatus {
     OPEN = 'OPEN',
     IN_PROGRESS = 'IN_PROGRESS',
