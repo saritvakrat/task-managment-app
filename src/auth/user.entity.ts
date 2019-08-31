@@ -1,25 +1,20 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { TaskStatus } from './tasks-status.enum';
 
 /**
  *Entity is a class that maps to a database table 
  *
  * @export
- * @class Task
+ * @class User
  * @extends {BaseEntity}
  */
 @Entity()
-export class Task extends BaseEntity {
+export class User extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    title: string;
+    username: string;
 
     @Column()
-    description: string;
-
-    @Column()
-    status: TaskStatus;
-} 
-
+    password: string;
+}
