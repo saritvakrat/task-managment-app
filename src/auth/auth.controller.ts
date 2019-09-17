@@ -1,4 +1,11 @@
-import { Controller, Post, Body, ValidationPipe, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  ValidationPipe,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -18,21 +25,23 @@ import { User } from './user.entity';
  */
 @Controller('auth')
 export class AuthController {
-    constructor(
-        private authService: AuthService,
-    ) { }
+  constructor(private authService: AuthService) {}
 
-    @Post('/signup')
-    signUp(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<void> {
-        return this.authService.signUp(authCredentialsDto);
-    }
+  @Post('/signup')
+  signUp(
+    @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
+  ): Promise<void> {
+    return this.authService.signUp(authCredentialsDto);
+  }
 
-    @Post('/signin')
-    signIn(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-        return this.authService.signIn(authCredentialsDto);
-    }
+  @Post('/signin')
+  signIn(
+    @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
+  ): Promise<{ accessToken: string }> {
+    return this.authService.signIn(authCredentialsDto);
+  }
 
-    /**
+  /**
      *Binds guards to the particular context. When the @UseGuards() is used on the controller level:
      Guard will be register to each handler (every method)
      When the @UseGuards() is used on the handler level:
@@ -42,9 +51,9 @@ export class AuthController {
      * @param {*} req
      * @memberof AuthController
      */
-    // @Post('/test')
-    // @UseGuards(AuthGuard())
-    // test(@GetUser() user: User) {
-    //     console.log(user)
-    // }
+  // @Post('/test')
+  // @UseGuards(AuthGuard())
+  // test(@GetUser() user: User) {
+  //     console.log(user)
+  // }
 }

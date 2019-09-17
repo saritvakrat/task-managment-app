@@ -8,10 +8,10 @@ import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [ 
     TypeOrmModule.forFeature([TaskRepository]),
-    AuthModule
+    AuthModule,
   ],
   controllers: [TasksController],
-  providers: [TasksService]
+  providers: [TasksService],
 })
 
 export class TasksModule { }

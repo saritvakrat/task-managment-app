@@ -15,5 +15,5 @@ export class GetTasksFilterDto {
     @IsOptional()
     @IsNotEmpty() 
     search: string;
-    management
+    management;
 }

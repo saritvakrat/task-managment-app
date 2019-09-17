@@ -20,6 +20,14 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "apidocs": "typedoc --out ./docs/documentation ./src --mode file --tsconfig ./tsconfig.json"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts}": "eslint --fix"
+  },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
@@ -47,7 +55,9 @@
     "@types/passport-jwt": "^3.0.1",
     "@types/supertest": "^2.0.7",
     "concurrently": "^4.1.0",
+    "husky": "^3.0.5",
     "jest": "^23.6.0",
+    "lint-staged": "^9.2.5",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
     "supertest": "^3.4.1",

@@ -6,9 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './auth/auth.module';
 
-//Module is declared using a TS decorator
+// Module is declared using a TS decorator
 @Module({ 
-  imports:  [ 
+  imports: [ 
     TypeOrmModule.forRoot(typeOrmConfig),
     TasksModule,
     AuthModule,
