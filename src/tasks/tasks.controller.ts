@@ -13,6 +13,7 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  Logger
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -35,6 +36,7 @@ import { GetUser } from '../auth/get-user.decorator';
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
+  private logger = new Logger(`TasksController`);
   constructor(private tasksService: TasksService) {}
 
   @Get()
@@ -42,6 +44,7 @@ export class TasksController {
     @Query(ValidationPipe) filterDto: GetTasksFilterDto,
     @GetUser() user: User,
   ): Promise<Task[]> {
+      this.logger.verbose(`User "${user.username}" retrieving all tasks. Filters applied ${JSON.stringify(filterDto)}`);
     return this.tasksService.getTasks(filterDto, user);
   }
 
@@ -55,6 +58,7 @@ export class TasksController {
     @Param('id', ParseIntPipe) id: number,
     @GetUser() user: User,
   ): Promise<Task> {
+    this.logger.verbose(`User "${user.username}" retrieving a single task. Task ${id}`);
     return this.tasksService.getTaskById(id, user);
   }
 
@@ -69,6 +73,7 @@ export class TasksController {
     @Body() createTaskDto: CreateTaskDto,
     @GetUser() user: User,
   ): Promise<Task> {
+    this.logger.verbose(`User "${user.username}" creating a task. Task info ${JSON.stringify(createTaskDto)}`);
     return this.tasksService.createTask(createTaskDto, user);
   }
 
@@ -83,6 +88,7 @@ export class TasksController {
     @Param('id', ParseIntPipe) id: number,
     @GetUser() user: User,
   ): Promise<void> {
+    this.logger.verbose(`User "${user.username}" deleted a task. Task id ${id}`);
     return this.tasksService.deleteTaskById(id, user);
   }
 
@@ -98,6 +104,7 @@ export class TasksController {
     @Body('status', TaskStatusValidationPipe) status: TaskStatus,
     @GetUser() user: User,
   ): Promise<Task> {
+    this.logger.verbose(`User "${user.username}" updates a task. Task id ${id}, ${status}`);
     return this.tasksService.updateTaskStatus(id, status, user);
   }
 }
