@@ -1,0 +1,10 @@
+db:
+  type: 'postgres'
+  host: 'localhost'
+  username: 'postgres'
+  password: 'postgres'
+  synchronize: true
+
+
+jwt: 
+  secret: 'mySuperDuperTopSecretKet2183712837203918@#!'
